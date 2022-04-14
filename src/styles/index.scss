@@ -8,6 +8,7 @@
     --font-size: 16px;
     --animation-speed: 1;
 }
+@import 'partials/animations';
 
 @function animation($speed: number) {
     @return calc($speed * var(--animation-speed));
@@ -117,6 +118,44 @@ a{
             &:nth-child(3){
                 transform: translate(0, -50%) scale(1) rotate(-45deg);
             }
+        }
+    }
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: var(--background-color);
+    box-shadow: 0 0 0 1000px rgba(0,0,0,0.2),
+    3px 0 5px var(--shadow-color);
+    animation: animation(.4s) slideInLeft;
+    .sidebar-link{
+        display: block;
+        padding: .5em 1em;
+        border-left: .4em solid transparent;
+        margin-bottom: 1em;
+        color: var(--text-color);
+        font-size: 1.2em;
+        transform: translateX(-100%);
+        animation: animation(.4s) slideInLeft forwards;
+        @for $i from 3 to 1 {
+            &:nth-child(#{$i}){
+                animation-delay: #{$i * .1}s;
+            }
+        }
+        &.active{
+            border-left-color: var(--primary-color);
+        }
+        &:hover{
+            border-left-color: var(--primary-color);
+            background-color: rgba(0,0,0,0.2);
+        }
+        svg{
+            width: 1.2em;
+            margin-right: .5em;
         }
     }
 }
